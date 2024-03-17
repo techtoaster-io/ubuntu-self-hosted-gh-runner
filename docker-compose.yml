@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  self-hosted-runner:
+    image: ubuntu-self-hosted-gh-runner:latest
+    container_name: self-hosted-runner
+    privileged: true
+    volumes:
+      - var-lib-docker:/var/lib/docker
+    networks:
+      - local-net
+    environment:
+      - REPO_OWNER=my-git-username
+      - REPOSITORY=self-hosted-local-infra-test
+      - RUNNER_ADMIN_TOKEN=<classic personal access token>
+      - RUNNER_LABELS={"labels":["self-hosted","jammy-amd64"]}
+      - RUNNER_NAME=self-hosted-jammy-amd64
+      - RUNNER_CONFIG_ARGS=--unattended --replace --disableupdate --no-default-labels
+
+networks:
+  local-net:
+    name: local-net
+
+volumes:
+  var-lib-docker:
+    name: var-lib-docker

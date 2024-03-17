@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+if [[ ${1:-} == '' ]]; then
+  source logger.sh
+  log.error "Missing required argument -- '<phase>'"
+  exit 64
+fi
